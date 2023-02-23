@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+  database:
+    container_name: pgdatabase
+    image: ghcr.io/thanhpp/zola/pgdb
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_MULTIPLE_DATABASES: laclongquan_db,laclongquan_user,laclongquan_pass;auco_db,auco_user,auco_pass
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    networks:
+      - intranet
+
+  laclongquan:
+    container_name: laclongquanservice
+    build:
+      context: ..
+      dockerfile: ./build/laclongquan/Dockerfile
+    depends_on:
+      - database
+    deploy:
+      restart_policy:
+          condition: on-failure
+          max_attempts: 5
+    environment:
+      WAIT_HOSTS:   database:5432
+      WAIT_AFTER:   5
+      LLQ_DB_HOST:  database
+      LLQ_DB_PORT:  5432
+    volumes:
+      - ./localstorage:/run/localstorage/
+    ports:
+      - 12100:12100
+    networks:
+      - intranet
+
+frontend:
+container_name: frontend
+build:
+context: ..
+dockerfile: ./build/fe/Dockerfile
+ports:
+- 3000:3000
+
+networks:
+  intranet:

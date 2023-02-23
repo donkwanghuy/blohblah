@@ -1,0 +1,21 @@
+.background {
+	padding: 30px;
+	background: #ececec;
+	height: 100vh;
+}
+
+.container {
+	background: #fff;
+	width: 100%;
+	height: 70vh;
+	overflow: auto;
+	padding: 0 5px;
+}
+
+.header {
+	position: fixed;
+	top: 19%;
+	margin: 0 -5px;
+	background: cornflowerblue;
+	width: 38.5%;
+}

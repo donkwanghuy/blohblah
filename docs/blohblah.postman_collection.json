@@ -1,0 +1,5399 @@
+{
+	"info": {
+		"_postman_id": "e6efcc09-957b-438d-a4da-2fbebab24167",
+		"name": "Zola",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "post",
+			"item": [
+				{
+					"name": "add_post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(pm.response);",
+									"var strData = pm.response.stream.toString('utf8');",
+									"var jsonData = JSON.parse(strData);",
+									"console.log(jsonData);",
+									"pm.environment.set(\"new_post_id\", jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "described",
+									"value": "Hello there",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "video",
+									"type": "file",
+									"src": "/home/thanhpp/go/src/github.com/thanhpp/zola/test/add_post/sample-5s.mp4.mp4"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/post",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "add_post - invalid ext",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "text"
+										},
+										{
+											"key": "described",
+											"value": "Hello there",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/home/thanhpp/Downloads/TKB20203-SIE-2206.xlsx"
+										},
+										{
+											"key": "video",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/post",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"post"
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 01 Nov 2021 17:57:32 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "61"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1004,\n    \"message\": \"invalid image extension\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "add_post - OK - video",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "text"
+										},
+										{
+											"key": "described",
+											"value": "Hello there",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "video",
+											"type": "file",
+											"src": "/home/thanhpp/go/src/github.com/thanhpp/zola/test/add_post/sample-5s.mp4.mp4"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/post",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"post"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 01 Nov 2021 18:03:11 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "79"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1000,\n    \"message\": \"\",\n    \"data\": {\n        \"id\": \"f9fb825d-3b3d-11ec-b13a-2cf05d8903e3\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "edit_post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "described",
+									"value": "hello there",
+									"type": "text"
+								},
+								{
+									"key": "media_del",
+									"value": "61b1b53c-4175-11ec-b713-2cf05d8903e3",
+									"type": "text"
+								},
+								{
+									"key": "media_del",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "video",
+									"type": "file",
+									"src": "/home/thanhpp/go/src/github.com/thanhpp/zola/test/add_post/sample-5s.mp4.mp4"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/post/e25ce9ac-4172-11ec-ba45-2cf05d8903e3",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"post",
+								"e25ce9ac-4172-11ec-ba45-2cf05d8903e3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "like",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/post/{{new_post_id}}/like",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"post",
+								"{{new_post_id}}",
+								"like"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "like - 1010 | locked post",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{zola}}/post/{{new_post_id}}/like",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"post",
+										"{{new_post_id}}",
+										"like"
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Nov 2021 15:39:17 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "49"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1010,\n    \"message\": \"locked post\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "like - 1000 | unlike",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{zola}}/post/{{new_post_id}}/like",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"post",
+										"{{new_post_id}}",
+										"like"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Nov 2021 16:13:05 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "44"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1000,\n    \"message\": \"\",\n    \"data\": {\n        \"like\": 0\n    }\n}"
+						},
+						{
+							"name": "like - 9992 | invalid postID",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{zola}}/post/{{new_post_id}}-as/like",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"post",
+										"{{new_post_id}}-as",
+										"like"
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Nov 2021 16:13:46 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "52"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1003,\n    \"message\": \"invalid postID\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "like - 1000 | like",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{zola}}/post/{{new_post_id}}/like",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"post",
+										"{{new_post_id}}",
+										"like"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Nov 2021 16:12:07 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "44"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1000,\n    \"message\": \"\",\n    \"data\": {\n        \"like\": 1\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "delete_post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/post/{{new_post_id}}",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"post",
+								"{{new_post_id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "delete_post - OK",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{zola}}/post/{{new_post_id}}",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"post",
+										"{{new_post_id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Nov 2021 05:20:47 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "40"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "set_comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "comment",
+									"value": "comment 1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/post/{{new_post_id}}/comment",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"post",
+								"{{new_post_id}}",
+								"comment"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "set_comment - 1000 | OK - blocked",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "comment",
+											"value": "comment 1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/post/{{new_post_id}}/comment",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"post",
+										"{{new_post_id}}",
+										"comment"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 29 Nov 2021 15:17:04 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "57"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": null,\n    \"is_blocked\": \"1\"\n}"
+						},
+						{
+							"name": "set_comment - 1000 | comment OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "comment",
+											"value": "comment 1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/post/{{new_post_id}}/comment",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"post",
+										"{{new_post_id}}",
+										"comment"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 29 Nov 2021 15:13:24 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "40"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "set_comment - 9992 | post not exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "comment",
+											"value": "comment 1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/post/c4b3340e-4012-4b63-b78b-b42a6244e699/comment",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"post",
+										"c4b3340e-4012-4b63-b78b-b42a6244e699",
+										"comment"
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 29 Nov 2021 15:14:01 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "52"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 9992,\n    \"message\": \"post not exist\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "set_comment - 1010 | locked post",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "comment",
+											"value": "comment 1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/post/{{new_post_id}}/comment",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"post",
+										"{{new_post_id}}",
+										"comment"
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 29 Nov 2021 15:15:20 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "49"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1010,\n    \"message\": \"locked post\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "edit_comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "comment",
+									"value": "comment 123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/post/{{new_post_id}}/comment/d956efb6-21d5-47b4-acf6-cb61b51eb024",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"post",
+								"{{new_post_id}}",
+								"comment",
+								"d956efb6-21d5-47b4-acf6-cb61b51eb024"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "edit_comment - 1004 | invalid content",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "comment",
+											"value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/post/{{new_post_id}}/comment/d956efb6-21d5-47b4-acf6-cb61b51eb024",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"post",
+										"{{new_post_id}}",
+										"comment",
+										"d956efb6-21d5-47b4-acf6-cb61b51eb024"
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 02 Dec 2021 15:56:18 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "61"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1004,\n    \"message\": \"invalid comment content\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "edit_comment - 1000 | ok",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "comment",
+											"value": "comment 1234",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/post/{{new_post_id}}/comment/d956efb6-21d5-47b4-acf6-cb61b51eb024",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"post",
+										"{{new_post_id}}",
+										"comment",
+										"d956efb6-21d5-47b4-acf6-cb61b51eb024"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 02 Dec 2021 15:54:13 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "40"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "edit_comment - 9995 | blocked ",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "comment",
+											"value": "comment 123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/post/{{new_post_id}}/comment/d956efb6-21d5-47b4-acf6-cb61b51eb024",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"post",
+										"{{new_post_id}}",
+										"comment",
+										"d956efb6-21d5-47b4-acf6-cb61b51eb024"
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 02 Dec 2021 16:00:27 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "50"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 9995,\n    \"message\": \"not a friend\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "edit_comment - 9995 | locked user",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "comment",
+											"value": "comment 123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/post/{{new_post_id}}/comment/d956efb6-21d5-47b4-acf6-cb61b51eb024",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"post",
+										"{{new_post_id}}",
+										"comment",
+										"d956efb6-21d5-47b4-acf6-cb61b51eb024"
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 02 Dec 2021 15:58:57 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "49"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 9995,\n    \"message\": \"locked user\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "del_comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "comment",
+									"value": "comment 123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/post/{{new_post_id}}/comment/48463920-78d6-483e-966c-8058ffd0e9ca",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"post",
+								"{{new_post_id}}",
+								"comment",
+								"48463920-78d6-483e-966c-8058ffd0e9ca"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "del_comment - 9992 | invalid post id",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "comment",
+											"value": "comment 123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/post/{{new_post_id}}/comment/48463920-78d6-483e-966c-8058ffd0e9ca",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"post",
+										"{{new_post_id}}",
+										"comment",
+										"48463920-78d6-483e-966c-8058ffd0e9ca"
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 03 Dec 2021 15:32:40 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "53"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 9992,\n    \"message\": \"invalid post id\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "del_comment - 9995 | locked user",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "comment",
+											"value": "comment 123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/post/{{new_post_id}}/comment/48463920-78d6-483e-966c-8058ffd0e9ca",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"post",
+										"{{new_post_id}}",
+										"comment",
+										"48463920-78d6-483e-966c-8058ffd0e9ca"
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 03 Dec 2021 15:27:09 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "49"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 9995,\n    \"message\": \"locked user\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "del_comment - 1000 | OK",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "comment",
+											"value": "comment 123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/post/{{new_post_id}}/comment/109b6e9a-c671-4a9d-a5c9-56367bd73619",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"post",
+										"{{new_post_id}}",
+										"comment",
+										"109b6e9a-c671-4a9d-a5c9-56367bd73619"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 03 Dec 2021 15:16:54 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "40"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "del_comment - 9992 | locked post",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "comment",
+											"value": "comment 123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/post/{{new_post_id}}/comment/32286578-4aa9-4c4c-82e8-d9c61966ab0c",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"post",
+										"{{new_post_id}}",
+										"comment",
+										"32286578-4aa9-4c4c-82e8-d9c61966ab0c"
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 03 Dec 2021 15:24:53 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "49"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 9992,\n    \"message\": \"locked post\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "get_media",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/post/{{new_post_id}}/media/117a6982-4242-42e8-b7de-c9106437ae31",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"post",
+								"{{new_post_id}}",
+								"media",
+								"117a6982-4242-42e8-b7de-c9106437ae31"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/post/{{new_post_id}}",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"post",
+								"{{new_post_id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get_post - 1000 | ok | get by the creator",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{zola}}/post/{{new_post_id}}",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"post",
+										"{{new_post_id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 13 Dec 2021 14:55:45 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "479"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": {\n        \"id\": \"116880b9-5c22-11ec-ab4e-2cf05d8903e3\",\n        \"described\": \"Hello there\",\n        \"created\": 1639406193,\n        \"modified\": 1639406193,\n        \"like\": 0,\n        \"comment\": 0,\n        \"images\": null,\n        \"video\": {\n            \"url\": \"http://0.0.0.0:12100/post/116880b9-5c22-11ec-ab4e-2cf05d8903e3/media/115e5e27-5c22-11ec-ab4e-2cf05d8903e3\",\n            \"thumb\": \"\"\n        },\n        \"author\": {\n            \"id\": \"ab05fe44-544b-11ec-b533-2cf05d8903e3\",\n            \"name\": \"\",\n            \"avatar\": \"\"\n        },\n        \"state\": \"active\",\n        \"is_liked\": \"0\",\n        \"is_blocked\": \"0\",\n        \"can_edit\": \"1\",\n        \"can_comment\": \"0\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "edit post permissions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "can_comment",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/post/{{new_post_id}}/perm",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"post",
+								"{{new_post_id}}",
+								"perm"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "\"0\"",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_comments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/post/04637818-752d-11ec-8884-0242ac120003/comment?index=1&count=1",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"post",
+								"04637818-752d-11ec-8884-0242ac120003",
+								"comment"
+							],
+							"query": [
+								{
+									"key": "index",
+									"value": "1"
+								},
+								{
+									"key": "count",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_list_post",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "last_id",
+									"value": "04637818-752d-11ec-8884-0242ac120003",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/post",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "report",
+			"item": [
+				{
+					"name": "report_post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "{{new_post_id}}",
+									"type": "text"
+								},
+								{
+									"key": "subject",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "details",
+									"value": "stupid",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/report",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"report"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "report_post - 1010 | locked post",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "{{new_post_id}}",
+											"type": "text"
+										},
+										{
+											"key": "subject",
+											"value": "0",
+											"type": "text"
+										},
+										{
+											"key": "details",
+											"value": "stupid",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/report",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"report"
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 12 Nov 2021 17:05:50 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "56"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1010,\n    \"message\": \"report locked post\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "report_post - 9992 | post not exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "{{new_post_id}}-abc",
+											"type": "text"
+										},
+										{
+											"key": "subject",
+											"value": "0",
+											"type": "text"
+										},
+										{
+											"key": "details",
+											"value": "stupid",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/report",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"report"
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 12 Nov 2021 17:06:05 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "52"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 9992,\n    \"message\": \"post not exist\",\n    \"data\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "block",
+			"item": [
+				{
+					"name": "block/unblock user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "3de18c16-6cb0-11ec-a3a1-0242ac1c0003",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/block",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"block"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "block/unblock user - user not exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_id",
+											"value": "c474e292-45df-11ec-8986-2cf05d8903e3",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "0",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/block",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"block"
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 15 Nov 2021 15:12:09 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "52"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1004,\n    \"message\": \"user not exist\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "unblock user - ok",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_id",
+											"value": "d460ac72-4625-11ec-a9f3-2cf05d8903e3",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/block",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"block"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 15 Nov 2021 15:10:14 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "40"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "block/unblock user - self block error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_id",
+											"value": "b0c0fb13-35c1-11ec-94f3-2cf05d8903e3",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "0",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/block",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"block"
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 15 Nov 2021 15:03:39 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "58"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1004,\n    \"message\": \"can't block yourself\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "block/unblock user - OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_id",
+											"value": "d460ac72-4625-11ec-a9f3-2cf05d8903e3",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "0",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/block",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"block"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 15 Nov 2021 15:09:24 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "40"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "block/unblock diary",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "3de18c16-6cb0-11ec-a3a1-0242ac1c0003",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/block/diary",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"block",
+								"diary"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "block/unblock diary - 1004 | invalid block type",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_id",
+											"value": "5ba15938-6cb0-11ec-a3a1-0242ac1c0003",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "10",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/block/diary",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"block",
+										"diary"
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 Jan 2022 04:31:32 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "56"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Report-To",
+									"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=kKKTW5yGFJ3cBECNuUPlregDtTBvkcGeP8qq61Fxj3i%2FmM3m3NxkaoPnmMAlpUcHYCrTQNQNRkXBeTdnllS3BVVupIBafZyDI%2F4Qx9ouhmVwgY1S2wlK57GQ%2FWwdFNUBUAkoEp8%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "NEL",
+									"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "6c9237a5a8c001d9-SIN"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400, h3-28=\":443\"; ma=86400, h3-27=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1004,\n    \"message\": \"invalid block type\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "block/unblock diary - 1004 | same user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_id",
+											"value": "5ba15938-6cb0-11ec-a3a1-0242ac1c0003",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/block/diary",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"block",
+										"diary"
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 Jan 2022 04:31:09 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "47"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Report-To",
+									"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=oVq%2Bx45S5h6%2B3WcuEFa1gfOF4gkDfORBJd5Dwx2MrabpDkH5g6tjuziTxVG%2BA7ifoSLERJhgA6Rwa1HBtgcsb0NQDfS%2Ba3WyD233%2F7l%2Bz6tpAaM8aoQwdp6lrv71bXFuRd%2Fh8y4%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "NEL",
+									"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "6c9237149c6d01d9-SIN"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400, h3-28=\":443\"; ma=86400, h3-27=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1004,\n    \"message\": \"same user\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "block/unblock diary - 1004 | locked user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_id",
+											"value": "3de18c16-6cb0-11ec-a3a1-0242ac1c0003",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "0",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/block/diary",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"block",
+										"diary"
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 Jan 2022 04:28:02 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "58"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Report-To",
+									"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=LyUkkF3tPFXkZ73Ze3CsJPgJuQlVF97q92d5F1e42tFYAjZ94%2FcOGRGfKHyWWtcb5ZEPOa17mO3tfN7zRwKnG4gRgby7eQqKlz%2B%2BGZ%2BE7YZbwHFxBxVFaQtscAEW4GtNBt8KRkI%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "NEL",
+									"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "6c9232830dc101d9-SIN"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400, h3-28=\":443\"; ma=86400, h3-27=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1004,\n    \"message\": \"user has been locked\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "block/unblock diary - 1004 | already blocked",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_id",
+											"value": "3de18c16-6cb0-11ec-a3a1-0242ac1c0003",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "0",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/block/diary",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"block",
+										"diary"
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 Jan 2022 04:34:59 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Report-To",
+									"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=gmSxmWeEvbWZ1UzKoJqBR9DwWjxFlqrvc%2FYyipJ3pbhaMGpa0Q%2BjFuhsFgxcz3zz5yC6%2FwH%2FjBrBwhqzSWiwlSz2Kx%2Brzxs0QTZY2k9U8a%2BM54GAPQF6nn1eNw%2FGK7Zcb3ty2q4%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "NEL",
+									"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "6c923cb3fa0a01d9-SIN"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400, h3-28=\":443\"; ma=86400, h3-27=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1010,\n    \"message\": \"user has already been blocked\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "block/unblock diary - 1000 | Block diary OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_id",
+											"value": "3de18c16-6cb0-11ec-a3a1-0242ac1c0003",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "0",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/block/diary",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"block",
+										"diary"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 Jan 2022 04:21:03 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "40"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Report-To",
+									"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=dh1IPoID8AfVbS%2BesGBHwn%2Bi9P8AF0awSUCzjAupERRKGAA6JNbzi%2FZLvnaC7mYPcCUFi1qZtK9OVLZCXw9idoot9qOaRbcMZWSH%2BF2xAA%2B0oKTuwdHKwSn1i6YK1PCeweYLZ%2Bc%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "NEL",
+									"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "6c9228490e2001d9-SIN"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400, h3-28=\":443\"; ma=86400, h3-27=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "block/unblock diary - 1000 | unblock diary ok",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_id",
+											"value": "3de18c16-6cb0-11ec-a3a1-0242ac1c0003",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{zola}}/block/diary",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"block",
+										"diary"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 Jan 2022 04:21:28 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "40"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Report-To",
+									"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=32aWhkTjB67GMhPLVaOfG0%2BuwC0T9AAkNHI7zHsK96AcmHnO6DJPCpVR2LHtVQhxVA2e6vB4WefcmZWxxoT0UDwV1WEo8ku4su0aMf9tW23ScW2C%2BjZz7G09eI9rQs9%2FlMdsOLk%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "NEL",
+									"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "6c9228e6287f01d9-SIN"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400, h3-28=\":443\"; ma=86400, h3-27=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "get_user_list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/admin/users",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get_user_list - 1000 | OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{zola}}/admin/users",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"admin",
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 Jan 2022 09:38:27 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Report-To",
+									"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=5aJzwoJ%2FmlUOgo1A39QRGeOmByRHNMuvzfpFHxRjhqBHzQuKePLqc%2FiA72gDJUXVkrtT47iViTgME8q0jHxw%2BAZNT4Qd9DsVIez74QmvRNf2yoGIwdebfyXCgRMNWFjtGQbUdLs%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "NEL",
+									"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "6c93f93c1a6218f4-SIN"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400, h3-28=\":443\"; ma=86400, h3-27=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": {\n        \"users\": [\n            {\n                \"user_id\": \"5ba15938-6cb0-11ec-a3a1-0242ac1c0003\",\n                \"phone\": \"0954482733\",\n                \"username\": \"username\",\n                \"name\": \"0954482733\",\n                \"avatar\": \"https://zola.thanhpp.ninja/user/5ba15938-6cb0-11ec-a3a1-0242ac1c0003/media/50fd7afb-0c01-4463-8930-6e4bf78656f0\",\n                \"state\": \"active\",\n                \"last_login\": \"\"\n            },\n            {\n                \"user_id\": \"0596a256-6cb1-11ec-a3a1-0242ac1c0003\",\n                \"phone\": \"0915258989\",\n                \"username\": \"\",\n                \"name\": \"0915258989\",\n                \"avatar\": \"\",\n                \"state\": \"active\",\n                \"last_login\": \"\"\n            },\n            {\n                \"user_id\": \"3de18c16-6cb0-11ec-a3a1-0242ac1c0003\",\n                \"phone\": \"0965508091\",\n                \"username\": \"\",\n                \"name\": \"0965508091\",\n                \"avatar\": \"\",\n                \"state\": \"active\",\n                \"last_login\": \"\"\n            }\n        ],\n        \"total\": \"3\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "get user by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/admin/users/{{adminCreatedUserID}}",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"admin",
+								"users",
+								"{{adminCreatedUserID}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get_user_list - 1000 | OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{zola}}/admin/users",
+									"host": [
+										"{{zola}}"
+									],
+									"path": [
+										"admin",
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 Jan 2022 09:38:27 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Report-To",
+									"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=5aJzwoJ%2FmlUOgo1A39QRGeOmByRHNMuvzfpFHxRjhqBHzQuKePLqc%2FiA72gDJUXVkrtT47iViTgME8q0jHxw%2BAZNT4Qd9DsVIez74QmvRNf2yoGIwdebfyXCgRMNWFjtGQbUdLs%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "NEL",
+									"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "6c93f93c1a6218f4-SIN"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400, h3-28=\":443\"; ma=86400, h3-27=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": {\n        \"users\": [\n            {\n                \"user_id\": \"5ba15938-6cb0-11ec-a3a1-0242ac1c0003\",\n                \"phone\": \"0954482733\",\n                \"username\": \"username\",\n                \"name\": \"0954482733\",\n                \"avatar\": \"https://zola.thanhpp.ninja/user/5ba15938-6cb0-11ec-a3a1-0242ac1c0003/media/50fd7afb-0c01-4463-8930-6e4bf78656f0\",\n                \"state\": \"active\",\n                \"last_login\": \"\"\n            },\n            {\n                \"user_id\": \"0596a256-6cb1-11ec-a3a1-0242ac1c0003\",\n                \"phone\": \"0915258989\",\n                \"username\": \"\",\n                \"name\": \"0915258989\",\n                \"avatar\": \"\",\n                \"state\": \"active\",\n                \"last_login\": \"\"\n            },\n            {\n                \"user_id\": \"3de18c16-6cb0-11ec-a3a1-0242ac1c0003\",\n                \"phone\": \"0965508091\",\n                \"username\": \"\",\n                \"name\": \"0965508091\",\n                \"avatar\": \"\",\n                \"state\": \"active\",\n                \"last_login\": \"\"\n            }\n        ],\n        \"total\": \"3\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "delete_user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/admin/users/{{adminCreatedUserID}}",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"admin",
+								"users",
+								"{{adminCreatedUserID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(pm.response);",
+									"var strData = pm.response.stream.toString('utf8');",
+									"var jsonData = JSON.parse(strData);",
+									"console.log(jsonData);",
+									"pm.environment.set(\"adminCreatedUserID\", jsonData.data.user_id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "phone",
+									"value": "0948837261",
+									"type": "text"
+								},
+								{
+									"key": "pass",
+									"value": "thanhPP12",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/admin/users",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"admin",
+								"users"
+							],
+							"query": [
+								{
+									"key": "phone",
+									"value": "0945583726",
+									"disabled": true
+								},
+								{
+									"key": "pass",
+									"value": "thisIsPass",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user state",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "state",
+									"value": "active",
+									"description": "locked or active",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/admin/users/{{adminCreatedUserID}}/state",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"admin",
+								"users",
+								"{{adminCreatedUserID}}",
+								"state"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "password",
+									"value": "ThanhPP123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/admin/users/{{adminCreatedUserID}}/password",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"admin",
+								"users",
+								"{{adminCreatedUserID}}",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get list post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/admin/posts?index=1&count=1",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"admin",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "index",
+									"value": "1"
+								},
+								{
+									"key": "count",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "chat",
+			"item": [
+				{
+					"name": "get conversation list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{auco}}/conversations",
+							"host": [
+								"{{auco}}"
+							],
+							"path": [
+								"conversations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get conversation by partnerid",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{auco}}/conversations/partner/ea033d22-708d-11ec-bd01-0242c0a83003?index=1&count=1",
+							"host": [
+								"{{auco}}"
+							],
+							"path": [
+								"conversations",
+								"partner",
+								"ea033d22-708d-11ec-bd01-0242c0a83003"
+							],
+							"query": [
+								{
+									"key": "index",
+									"value": "1"
+								},
+								{
+									"key": "count",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get conversation by roomid",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{auco}}/conversations/d83bd715-2985-4530-bbd8-22c3a846c656",
+							"host": [
+								"{{auco}}"
+							],
+							"path": [
+								"conversations",
+								"d83bd715-2985-4530-bbd8-22c3a846c656"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete conversation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{auco}}/conversations/e92beb1c-6faa-4f04-b805-c968916711f0",
+							"host": [
+								"{{auco}}"
+							],
+							"path": [
+								"conversations",
+								"e92beb1c-6faa-4f04-b805-c968916711f0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete message",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{auco}}/conversations/message/d83bd715-2985-4530-bbd8-22c3a846c656|1642789194219",
+							"host": [
+								"{{auco}}"
+							],
+							"path": [
+								"conversations",
+								"message",
+								"d83bd715-2985-4530-bbd8-22c3a846c656|1642789194219"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "internal",
+			"item": [
+				{
+					"name": "validate token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/internal/user/ea033d22-708d-11ec-bd01-0242c0a83003",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"internal",
+								"user",
+								"ea033d22-708d-11ec-bd01-0242c0a83003"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "is block",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "phonenumber",
+							"value": "{{phonenumber}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{zola}}/signup",
+					"protocol": "https",
+					"host": [
+						"{{zola}}"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Signup - Invalid password",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "phonenumber",
+									"value": "0965508018",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Thanh@PPT",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{zola}}/signup",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"status": "Not Acceptable",
+					"code": 406,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 25 Oct 2021 18:32:53 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "54"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1004,\n    \"message\": \"invalid password\",\n    \"data\": null\n}"
+				},
+				{
+					"name": "Signup - OK",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "phonenumber",
+									"value": "0965508018",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "ThanhPPT",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{zola}}/signup",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 25 Oct 2021 18:31:15 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "40"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": null\n}"
+				},
+				{
+					"name": "Signup - invalid phone number",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "phonenumber",
+									"value": "096550abc8018",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "ThanhPPT",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{zola}}/signup",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"status": "Not Acceptable",
+					"code": 406,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 25 Oct 2021 18:32:21 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "58"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1004,\n    \"message\": \"invalid phone number\",\n    \"data\": null\n}"
+				},
+				{
+					"name": "Signup - existed",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "phonenumber",
+									"value": "0965508018",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "ThanhPPT",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{zola}}/signup",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"status": "Not Acceptable",
+					"code": 406,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 25 Oct 2021 18:32:01 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "50"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 9996,\n    \"message\": \"user existed\",\n    \"data\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(pm.response);",
+							"var strData = pm.response.stream.toString('utf8');",
+							"var jsonData = JSON.parse(strData);",
+							"console.log(jsonData);",
+							"pm.environment.set(\"token\", jsonData.data);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "phonenumber",
+							"value": "{{phonenumber}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{zola}}/login",
+					"host": [
+						"{{zola}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Signin - OK",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "phonenumber",
+									"value": "0965508018",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "ThanhPPT",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/signin",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"signin"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 28 Oct 2021 13:43:03 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "821"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1000,\n    \"message\": \"\",\n    \"data\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IkxhY0xvbmdRdWFuS2V5IiwidHlwIjoiSldUIn0.eyJleHAiOjE2MzU0MzIxODMsImlhdCI6MTYzNTQyODU4MywiaXNzIjoiTGFjTG9uZ1F1YW4iLCJqdGkiOiJmOTEwNzhkMi0zN2Y0LTExZWMtYTU3Ny0yY2YwNWQ4OTAzZTMiLCJ1c2VyIjp7ImlkIjoiYmQwYTk1ZmItMzVjMS0xMWVjLTk0ZjMtMmNmMDVkODkwM2UzIn19.JSpHkoReZuWxTR6ioB5CxQVHXyf0xQT6HmKtCCpTgi7Q0W0BUPLrqQQRIcL90twyhAcgBm1legsFvGicmUorrl8OUDlG_-EkDJtYoqBAIYKfmiuByvSc56dluxfX5FyIGBQxFzXZ7c_OZtNBbiJhyqsS4_EKuQqm03FVNMx8LBHYOZkwMjsTdMtEAYGyriB7nTnA4GNpX6Guzs1x-Aim7WLNPp5kFxb34ew64x-33SwDoMo2WAAR421-_ae-qYL3n1zYfsl4kwvfK0zXHwgFcht9LWGVpC20VZeL3nxgqK21t6OVGc9TCuAAW6SrxBPAJhW7j31JMdB-1o_XpAD0-lHZJWuIXueWeXCnMGcOZt3I6lTdIhE4nKONAzwkiJK24vXoe4LFmuyq6Smg7i1YxZDcwt_Sj7bASRTwL4PrDXBTSQPz5JvliKljsyZrwDyBJOcQOvuAQ5ub8uyDrOVqXXiaGoiq4A79siFhLPRvolItyp6B8Prtypxssw82uRKG\"\n}"
+				}
+			]
+		},
+		{
+			"name": "login - admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(pm.response);",
+							"var strData = pm.response.stream.toString('utf8');",
+							"var jsonData = JSON.parse(strData);",
+							"console.log(jsonData);",
+							"pm.environment.set(\"token\", jsonData.data);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "phonenumber",
+							"value": "{{adminphone}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{adminpass}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{zola}}/login",
+					"host": [
+						"{{zola}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "login - admin | 1000 | OK",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "phonenumber",
+									"value": "{{adminphone}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{adminpass}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/login",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Dec 2021 15:35:45 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "841"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1000,\n    \"message\": \"\",\n    \"data\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IkxhY0xvbmdRdWFuS2V5IiwidHlwIjoiSldUIn0.eyJleHAiOjE2Mzk0NTI5NDUsImlhdCI6MTYzOTQwOTc0NSwiaXNzIjoiTGFjTG9uZ1F1YW4iLCJqdGkiOiI1Njc3MmFiNS01YzJhLTExZWMtYWZkZi0yY2YwNWQ4OTAzZTMiLCJ1c2VyIjp7ImlkIjoiMjdlZjUzOTMtNWMyYS0xMWVjLWE2NmMtMmNmMDVkODkwM2UzIiwicm9sZSI6ImFkbWluIn19.S3JttYgnKIwEY7jW45T5AB-m4JQT1GGLuiY_J7lhiur7o49UXMeeR9Ig0VZhcrw_6INPk7YZLk7Okou3tM2dbw5b1eLpzKiFJePp4aIvGBMh8ii0xcXtZEHPeoR83UdpgqBzR1nsRyFdiI06NRUCalfaw0hlihdDHLvLMZvAfIwbUFoReKIhjgrSzjNyfOiX74juMh9cNCfgTIJcJNszGvMU6vUCDs_7MH1RZ2kpVTWgAA4PH8y1ZVcZltfZaOxNPkjUSQ8fikUhsJXjOm6Psf9tRfqCHt51V2UToyFHeiEXzfKYEodEP1k2kZ-ey4Kj1FIR0FWt9cMSlwRgkanLEUkuw--CIlxh--uye8HQbvTh7vLI0IsHYCEFzz9_Ev2Evjaaz8j8gSBbEjTCJbu7u4gzoADupl293fou71rgRrWExEONGrwJ3K2YMZBQUmOq8R5skQ4OfEjtcN8pJO1IHCCrVvw7Owtuwkprn4F5_3pr1Gru0r5h0qCZRa1prJuJ\"\n}"
+				}
+			]
+		},
+		{
+			"name": "logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{zola}}/logout",
+					"host": [
+						"{{zola}}"
+					],
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Signout - Error",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/signout",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"signout"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 29 Oct 2021 06:08:09 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "53"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 9998,\n    \"message\": \"invalid request\",\n    \"data\": null\n}"
+				},
+				{
+					"name": "Signout - OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/signout",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"signout"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 29 Oct 2021 06:08:30 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "40"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "set_request_friend",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{zola}}/friend/request/21dff7ac-7776-11ec-b80e-0242c0a84003",
+					"host": [
+						"{{zola}}"
+					],
+					"path": [
+						"friend",
+						"request",
+						"21dff7ac-7776-11ec-b80e-0242c0a84003"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "set_request_friend - 1010 | relation existed",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/friend/request/2d276ca1-35c1-11ec-b59d-2cf05d8903e3",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"friend",
+								"request",
+								"2d276ca1-35c1-11ec-b59d-2cf05d8903e3"
+							]
+						}
+					},
+					"status": "Not Acceptable",
+					"code": 406,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 22 Nov 2021 11:05:06 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "54"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1010,\n    \"message\": \"relation existed\",\n    \"data\": null\n}"
+				},
+				{
+					"name": "set_request_friend - 1000 | OK",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/friend/request/2d276ca1-35c1-11ec-b59d-2cf05d8903e3",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"friend",
+								"request",
+								"2d276ca1-35c1-11ec-b59d-2cf05d8903e3"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 22 Nov 2021 11:04:49 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "40"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": null\n}"
+				},
+				{
+					"name": "set_request_friend | 9995 - locked user",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/friend/request/d460ac72-4625-11ec-a9f3-2cf05d8903e3",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"friend",
+								"request",
+								"d460ac72-4625-11ec-a9f3-2cf05d8903e3"
+							]
+						}
+					},
+					"status": "Not Acceptable",
+					"code": 406,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 22 Nov 2021 11:09:38 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "49"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 9995,\n    \"message\": \"locked user\",\n    \"data\": null\n}"
+				},
+				{
+					"name": "set_request_friend - 9995 | invalid user",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/friend/request/as",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"friend",
+								"request",
+								"as"
+							]
+						}
+					},
+					"status": "Not Acceptable",
+					"code": 406,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 22 Nov 2021 11:05:50 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "48"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 9995,\n    \"message\": \"invalid user\",\n    \"data\": {}\n}"
+				},
+				{
+					"name": "set_request_friend - 1004 | same id request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/friend/request/b0c0fb13-35c1-11ec-94f3-2cf05d8903e3",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"friend",
+								"request",
+								"b0c0fb13-35c1-11ec-94f3-2cf05d8903e3"
+							]
+						}
+					},
+					"status": "Not Acceptable",
+					"code": 406,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 22 Nov 2021 11:03:56 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "53"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1004,\n    \"message\": \"same id request\",\n    \"data\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "set_accept_friend",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "is_accept",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{zola}}/friend/request/3de18c16-6cb0-11ec-a3a1-0242ac1c0003",
+					"host": [
+						"{{zola}}"
+					],
+					"path": [
+						"friend",
+						"request",
+						"3de18c16-6cb0-11ec-a3a1-0242ac1c0003"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "set_accept_friend - 1000 | accept OK",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "is_accept",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/friend/request/bd0a95fb-35c1-11ec-94f3-2cf05d8903e3",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"friend",
+								"request",
+								"bd0a95fb-35c1-11ec-94f3-2cf05d8903e3"
+							],
+							"query": [
+								{
+									"key": "is_accept",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 22 Nov 2021 18:33:00 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "40"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": null\n}"
+				},
+				{
+					"name": "set_accept_friend - 1004 | invalid code",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/friend/request/d460ac72-4625-11ec-a9f3-2cf05d8903e3?is_accept=4",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"friend",
+								"request",
+								"d460ac72-4625-11ec-a9f3-2cf05d8903e3"
+							],
+							"query": [
+								{
+									"key": "is_accept",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"status": "Not Acceptable",
+					"code": 406,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 22 Nov 2021 18:30:26 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "70"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1004,\n    \"message\": \"invalid request code\",\n    \"data\": {\n        \"IsAccept\": \"4\"\n    }\n}"
+				},
+				{
+					"name": "set_accept_friend - 1004 | not a friend request",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "is_accept",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/friend/request/bd0a95fb-35c1-11ec-94f3-2cf05d8903e3",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"friend",
+								"request",
+								"bd0a95fb-35c1-11ec-94f3-2cf05d8903e3"
+							],
+							"query": [
+								{
+									"key": "is_accept",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "Not Acceptable",
+					"code": 406,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 22 Nov 2021 18:34:42 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "58"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1004,\n    \"message\": \"not a friend request\",\n    \"data\": null\n}"
+				},
+				{
+					"name": "set_accept_friend - 9995 | locked user",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/friend/request/d460ac72-4625-11ec-a9f3-2cf05d8903e3?is_accept=1",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"friend",
+								"request",
+								"d460ac72-4625-11ec-a9f3-2cf05d8903e3"
+							],
+							"query": [
+								{
+									"key": "is_accept",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"status": "Not Acceptable",
+					"code": 406,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 22 Nov 2021 18:31:17 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "49"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 9995,\n    \"message\": \"locked user\",\n    \"data\": null\n}"
+				},
+				{
+					"name": "set_accept_friend - 1000 | reject OK",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "is_accept",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/friend/request/bd0a95fb-35c1-11ec-94f3-2cf05d8903e3",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"friend",
+								"request",
+								"bd0a95fb-35c1-11ec-94f3-2cf05d8903e3"
+							],
+							"query": [
+								{
+									"key": "is_accept",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 22 Nov 2021 18:33:54 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "40"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": null\n}"
+				},
+				{
+					"name": "set_accept_friend - 9995 | no friend request",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "is_accept",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/friend/request/bd0a95fb-35c1-11ec-94f3-2cf05d8903e3",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"friend",
+								"request",
+								"bd0a95fb-35c1-11ec-94f3-2cf05d8903e3"
+							],
+							"query": [
+								{
+									"key": "is_accept",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "Not Acceptable",
+					"code": 406,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 22 Nov 2021 18:34:16 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "62"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 9995,\n    \"message\": \"friend request not found\",\n    \"data\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "change_password",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "password",
+							"value": "PPThanh123",
+							"type": "text"
+						},
+						{
+							"key": "new_password",
+							"value": "ThanhPPT1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{zola}}/user/password",
+					"host": [
+						"{{zola}}"
+					],
+					"path": [
+						"user",
+						"password"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "change_password - 1000 | Update OK",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "password",
+									"value": "ThanhPPT1",
+									"type": "text"
+								},
+								{
+									"key": "new_password",
+									"value": "PPThanh123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/user/password",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"user",
+								"password"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Nov 2021 09:22:39 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "40"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": null\n}"
+				},
+				{
+					"name": "change_password - 1004 | invalid old password",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "password",
+									"value": "ThanhPP",
+									"type": "text"
+								},
+								{
+									"key": "new_password",
+									"value": "ThanhPPT1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/user/password",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"user",
+								"password"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Nov 2021 09:20:17 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "58"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1004,\n    \"message\": \"invalid old password\",\n    \"data\": null\n}"
+				},
+				{
+					"name": "change_password - 1004 | same password",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "password",
+									"value": "ThanhPPT1",
+									"type": "text"
+								},
+								{
+									"key": "new_password",
+									"value": "ThanhPPT1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/user/password",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"user",
+								"password"
+							]
+						}
+					},
+					"status": "Not Acceptable",
+					"code": 406,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Nov 2021 09:20:45 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "82"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1004,\n    \"message\": \"new password is too common with old password\",\n    \"data\": null\n}"
+				},
+				{
+					"name": "change_password - 9995 | locked user",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "password",
+									"value": "PPThanh123",
+									"type": "text"
+								},
+								{
+									"key": "new_password",
+									"value": "ThanhPPT1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/user/password",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"user",
+								"password"
+							]
+						}
+					},
+					"status": "Not Acceptable",
+					"code": 406,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Nov 2021 09:29:11 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "52"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 9995,\n    \"message\": \"user is locked\",\n    \"data\": null\n}"
+				},
+				{
+					"name": "change_password - 1004 | Invalid password",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "password",
+									"value": "ThanhPPT1",
+									"type": "text"
+								},
+								{
+									"key": "new_password",
+									"value": "PP.Thanh123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/user/password",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"user",
+								"password"
+							]
+						}
+					},
+					"status": "Not Acceptable",
+					"code": 406,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Nov 2021 09:21:31 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "58"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1004,\n    \"message\": \"invalid new password\",\n    \"data\": null\n}"
+				},
+				{
+					"name": "change_password - 1004 | common password",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "password",
+									"value": "ThanhPPT1",
+									"type": "text"
+								},
+								{
+									"key": "new_password",
+									"value": "ThanhPPT123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/user/password",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"user",
+								"password"
+							]
+						}
+					},
+					"status": "Not Acceptable",
+					"code": 406,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Nov 2021 09:20:58 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "82"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1004,\n    \"message\": \"new password is too common with old password\",\n    \"data\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "set_user_info",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "username",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "description",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "address",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "city",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "country",
+							"type": "text"
+						},
+						{
+							"key": "avatar",
+							"value": "https://randomurl/post/96a8effd-6cb0-11ec-a3a1-0242ac1c0003/media/50fd7afb-0c01-4463-8930-6e4bf78656f0",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "cover_image",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "link",
+							"value": "link",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "name",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{zola}}/user",
+					"host": [
+						"{{zola}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "set_user_info - 1004 | invalid username",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "user123name",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "description",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "address",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "city",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "country",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"value": "http://0.0.0.0:12100/post/2b388737-68bd-11ec-9456-2cf05d8903e3/media/ef77c01e-1485-4dd4-b144-7ecf75be29be",
+									"type": "text"
+								},
+								{
+									"key": "cover_image",
+									"value": "http://0.0.0.0:12100/post/2b388737-68bd-11ec-9456-2cf05d8903e3/media/ef77c01e-1485-4dd4-b144-7ecf75be29be",
+									"type": "text"
+								},
+								{
+									"key": "link",
+									"value": "link",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/user",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"status": "Not Acceptable",
+					"code": 406,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 29 Dec 2021 15:37:52 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "53"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1004,\n    \"message\": \"invalid request\",\n    \"data\": null\n}"
+				},
+				{
+					"name": "set_user_info - 1000 | OK",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "username",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "description",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "address",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "city",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "country",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"value": "http://0.0.0.0:12100/post/2b388737-68bd-11ec-9456-2cf05d8903e3/media/ef77c01e-1485-4dd4-b144-7ecf75be29be",
+									"type": "text"
+								},
+								{
+									"key": "cover_image",
+									"value": "http://0.0.0.0:12100/post/2b388737-68bd-11ec-9456-2cf05d8903e3/media/ef77c01e-1485-4dd4-b144-7ecf75be29be",
+									"type": "text"
+								},
+								{
+									"key": "link",
+									"value": "link",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/user",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 29 Dec 2021 15:37:23 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "99"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": {\n        \"avatar\": \"\",\n        \"cover_image\": \"\",\n        \"link\": \"\",\n        \"city\": \"\",\n        \"country\": \"\"\n    }\n}"
+				},
+				{
+					"name": "set_user_info - 1004 | invalid country",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "username",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "description",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "address",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "city",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "forbiden country",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"value": "http://0.0.0.0:12100/post/2b388737-68bd-11ec-9456-2cf05d8903e3/media/ef77c01e-1485-4dd4-b144-7ecf75be29be",
+									"type": "text"
+								},
+								{
+									"key": "cover_image",
+									"value": "http://0.0.0.0:12100/post/2b388737-68bd-11ec-9456-2cf05d8903e3/media/ef77c01e-1485-4dd4-b144-7ecf75be29be",
+									"type": "text"
+								},
+								{
+									"key": "link",
+									"value": "link",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/user",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"status": "Not Acceptable",
+					"code": 406,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 29 Dec 2021 15:50:07 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "53"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1004,\n    \"message\": \"invalid request\",\n    \"data\": null\n}"
+				},
+				{
+					"name": "set_user_info - 1004 | description too long",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "username",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "ErrDescriptionTooLongErrDescriptionTooLongErrDescriptionTooLongErrDescriptionTooLongErrDescriptionTooLongErrDescriptionTooLongErrDescriptionTooLongErrDescriptionTooLong",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "address",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "city",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "country",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"value": "http://0.0.0.0:12100/post/2b388737-68bd-11ec-9456-2cf05d8903e3/media/ef77c01e-1485-4dd4-b144-7ecf75be29be",
+									"type": "text"
+								},
+								{
+									"key": "cover_image",
+									"value": "http://0.0.0.0:12100/post/2b388737-68bd-11ec-9456-2cf05d8903e3/media/ef77c01e-1485-4dd4-b144-7ecf75be29be",
+									"type": "text"
+								},
+								{
+									"key": "link",
+									"value": "link",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{zola}}/user",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"status": "Not Acceptable",
+					"code": 406,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 29 Dec 2021 15:40:30 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "53"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1004,\n    \"message\": \"invalid request\",\n    \"data\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "get_user_info",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{zola}}/user/ea033d22-708d-11ec-bd01-0242c0a83003",
+					"host": [
+						"{{zola}}"
+					],
+					"path": [
+						"user",
+						"ea033d22-708d-11ec-bd01-0242c0a83003"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get_user_info - 1000 | OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/user/2c5ece68-6bda-11ec-a520-2cf05d8903e3",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"user",
+								"2c5ece68-6bda-11ec-a520-2cf05d8903e3"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 02 Jan 2022 15:18:24 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "382"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": {\n        \"id\": \"2c5ece68-6bda-11ec-a520-2cf05d8903e3\",\n        \"username\": \"username\",\n        \"description\": \"description\",\n        \"avatar\": \"http://0.0.0.0:12100/user/2c5ece68-6bda-11ec-a520-2cf05d8903e3/media/a0b3a6f0-61b5-43a2-8f64-65769d0493df\",\n        \"cover_image\": \"\",\n        \"link\": \"link\",\n        \"address\": \"address\",\n        \"city\": \"city\",\n        \"country\": \"country\",\n        \"is_friend\": \"0\",\n        \"listing\": 0,\n        \"created\": 1641134533\n    }\n}"
+				},
+				{
+					"name": "get_user_info - 1004 | locked user",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/user/2c5ece68-6bda-11ec-a520-2cf05d8903e3",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"user",
+								"2c5ece68-6bda-11ec-a520-2cf05d8903e3"
+							]
+						}
+					},
+					"status": "Not Acceptable",
+					"code": 406,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 02 Jan 2022 15:19:40 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "52"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1004,\n    \"message\": \"user not found\",\n    \"data\": null\n}"
+				},
+				{
+					"name": "get_user_info - 1004 | user not found",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/user/2c5ece68-6bdb-11ec-a520-2cf05d8903e3",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"user",
+								"2c5ece68-6bdb-11ec-a520-2cf05d8903e3"
+							]
+						}
+					},
+					"status": "Not Acceptable",
+					"code": 406,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 02 Jan 2022 15:18:49 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "52"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1004,\n    \"message\": \"user not found\",\n    \"data\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "get_requested_friends",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{zola}}/friend/requested",
+					"host": [
+						"{{zola}}"
+					],
+					"path": [
+						"friend",
+						"requested"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get_requested_friends - 1000 | admin OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/friend/requested/5ba15938-6cb0-11ec-a3a1-0242ac1c0003",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"friend",
+								"requested",
+								"5ba15938-6cb0-11ec-a3a1-0242ac1c0003"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Tue, 04 Jan 2022 18:08:36 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Report-To",
+							"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=vt33Ck0oaDULXBWHw%2F1zAFz2W76MexgPzj5ES36iETvf3qzzBNtZN%2FDeDX61t9rcODP1DTZy3BfydJHO6jTXftbCVRnv%2FKnyZbebTwI5jwr%2Ftvb8C%2B6x5ctAaiKmfW2yPsrfJoI%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+						},
+						{
+							"key": "NEL",
+							"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "CF-RAY",
+							"value": "6c8669c4ff5c89bc-SIN"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400, h3-28=\":443\"; ma=86400, h3-27=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": {\n        \"friends\": [\n            {\n                \"id\": \"3de18c16-6cb0-11ec-a3a1-0242ac1c0003\",\n                \"username\": \"\",\n                \"avatar\": \"\",\n                \"created\": 1641319206\n            }\n        ]\n    }\n}"
+				},
+				{
+					"name": "get_requested_friends - 1000 | user OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/friend/requested",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"friend",
+								"requested"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Tue, 04 Jan 2022 18:09:32 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Report-To",
+							"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=HOahtmvUIdwE9o9Dy51cc7y3aNGDlbmxf5pHaD%2BkFfEJNDmb3wfjdtjC2fYATCVYwyJpHZ5NI0Ct3OoBIlucy9a30%2Fn2FvLdVI07eRnu7s9OQvOVB4B4OpaY0y6PXK9Hspupd5w%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+						},
+						{
+							"key": "NEL",
+							"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "CF-RAY",
+							"value": "6c866b22f99089bc-SIN"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400, h3-28=\":443\"; ma=86400, h3-27=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": {\n        \"friends\": [\n            {\n                \"id\": \"3de18c16-6cb0-11ec-a3a1-0242ac1c0003\",\n                \"username\": \"\",\n                \"avatar\": \"\",\n                \"created\": 1641319206\n            }\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "get_user_friends",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{zola}}/friend",
+					"host": [
+						"{{zola}}"
+					],
+					"path": [
+						"friend"
+					],
+					"query": [
+						{
+							"key": "index",
+							"value": "10",
+							"disabled": true
+						},
+						{
+							"key": "count",
+							"value": "20",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get_user_friends - 1000 | user OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/friend",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"friend"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 05 Jan 2022 04:54:27 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Report-To",
+							"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=SHouUW%2BOnlmeadF9mZeTElKjhfu7Hu68KeCj26KD13q%2FcyZs4HtAF%2BKK2OdnzLS1LhaYI%2FPxNqboL9bzVLyZVNcs28I5SjrEymYFO1dbrUYu9UohX2y2wcnvnVrQy%2Bnj7BUFAkk%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+						},
+						{
+							"key": "NEL",
+							"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "CF-RAY",
+							"value": "6c8a1bd45c818998-SIN"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400, h3-28=\":443\"; ma=86400, h3-27=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": {\n        \"friends\": [\n            {\n                \"user_id\": \"5ba15938-6cb0-11ec-a3a1-0242ac1c0003\",\n                \"user_name\": \"username\",\n                \"avatar\": \"https://zola.thanhpp.ninja/user/5ba15938-6cb0-11ec-a3a1-0242ac1c0003/media/50fd7afb-0c01-4463-8930-6e4bf78656f0\",\n                \"status\": \"\"\n            }\n        ]\n    }\n}"
+				},
+				{
+					"name": "get_user_friends  - 1000 | admin OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{zola}}/friend/5ba15938-6cb0-11ec-a3a1-0242ac1c0003",
+							"host": [
+								"{{zola}}"
+							],
+							"path": [
+								"friend",
+								"5ba15938-6cb0-11ec-a3a1-0242ac1c0003"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 05 Jan 2022 04:29:36 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Report-To",
+							"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=Ev%2Ba86Jq5bQPhnBkgQUfjIhLoAJPK7aZe6EhNy%2BIp40p8F%2FOW0e%2B3YuR23kpDZ%2FI14hGTxwfnadEWkN%2B69PBkxzQV8e0e80CJfzTgJptoP0s%2Bf2M1lgc62yDymRCaM4WhSUpI24%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+						},
+						{
+							"key": "NEL",
+							"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "CF-RAY",
+							"value": "6c89f76be97c881d-SIN"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400, h3-28=\":443\"; ma=86400, h3-27=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 1000,\n    \"message\": \"OK\",\n    \"data\": {\n        \"friends\": [\n            {\n                \"user_id\": \"3de18c16-6cb0-11ec-a3a1-0242ac1c0003\",\n                \"user_name\": \"\",\n                \"avatar\": \"\",\n                \"status\": \"\"\n            }\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "set_user_online",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{zola}}/user/online",
+					"host": [
+						"{{zola}}"
+					],
+					"path": [
+						"user",
+						"online"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "keyword",
+							"value": "bóng",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{zola}}/search?index=1&count=1",
+					"host": [
+						"{{zola}}"
+					],
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "index",
+							"value": "1"
+						},
+						{
+							"key": "count",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
